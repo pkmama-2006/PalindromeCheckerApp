@@ -11,7 +11,22 @@ public class PalindromeCheckerApp {
 
         return input.equals(reversed);
     }
+    public static boolean arrayCheck(String input) {
 
+        char[] arr = input.toCharArray();
+
+        int left = 0;
+        int right = arr.length - 1;
+
+        while (left < right) {
+            if (arr[left] != arr[right])
+                return false;
+            left++;
+            right--;
+        }
+
+        return true;
+    }
     public static void main(String[] args) {
 
         System.out.println("=================================");
@@ -41,5 +56,10 @@ public class PalindromeCheckerApp {
             System.out.println(word + " is a Palindrome (UC3 - Reverse)");
         else
             System.out.println(word + " is NOT a Palindrome (UC3 - Reverse)");
+        // ================= UC4 - Character Array Method =================
+        if (arrayCheck(word))
+            System.out.println(word + " is a Palindrome (UC4 - Array)");
+        else
+            System.out.println(word + " is NOT a Palindrome (UC4 - Array)");
     }
 }
