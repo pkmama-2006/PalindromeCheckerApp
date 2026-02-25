@@ -152,6 +152,24 @@ public class PalindromeCheckerApp {
         // Recursive call
         return recursiveCheck(str, start + 1, end - 1);
     }
+    // ================= UC10 - Case & Space Ignored =================
+    public static boolean normalizedCheck(String input) {
+
+        // Remove spaces and convert to lowercase
+        String clean = input.replaceAll("\\s+", "").toLowerCase();
+
+        int left = 0;
+        int right = clean.length() - 1;
+
+        while (left < right) {
+            if (clean.charAt(left) != clean.charAt(right))
+                return false;
+            left++;
+            right--;
+        }
+
+        return true;
+    }
 
     public static void main(String[] args) {
 
@@ -208,5 +226,11 @@ public class PalindromeCheckerApp {
         System.out.println(word + (recursiveCheck(word, 0, word.length() - 1) ?
                 " is a Palindrome (UC9 - Recursion)" :
                 " is NOT a Palindrome (UC9 - Recursion)"));
+        // ================= UC10 - Case & Space Ignored =================
+        String testWord = "Ma dam";
+
+        System.out.println(testWord + (normalizedCheck(testWord) ?
+                " is a Palindrome (UC10 - Normalized)" :
+                " is NOT a Palindrome (UC10 - Normalized)"));
     }
 }
