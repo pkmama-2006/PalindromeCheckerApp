@@ -95,7 +95,6 @@ public class PalindromeCheckerApp {
         Node head = null;
         Node tail = null;
 
-        // Convert string to linked list
         for (char ch : input.toCharArray()) {
             Node newNode = new Node(ch);
             if (head == null) {
@@ -106,7 +105,6 @@ public class PalindromeCheckerApp {
             }
         }
 
-        // Find middle
         Node slow = head;
         Node fast = head;
 
@@ -115,7 +113,6 @@ public class PalindromeCheckerApp {
             fast = fast.next.next;
         }
 
-        // Reverse second half
         Node prev = null;
         while (slow != null) {
             Node next = slow.next;
@@ -124,7 +121,6 @@ public class PalindromeCheckerApp {
             slow = next;
         }
 
-        // Compare halves
         Node first = head;
         Node second = prev;
 
@@ -138,24 +134,22 @@ public class PalindromeCheckerApp {
 
         return true;
     }
-    // ================= UC9 - Recursive Method =================
+
+    // ================= UC9 - Recursive =================
     public static boolean recursiveCheck(String str, int start, int end) {
 
-        // Base Condition
         if (start >= end)
             return true;
 
-        // If mismatch found
         if (str.charAt(start) != str.charAt(end))
             return false;
 
-        // Recursive call
         return recursiveCheck(str, start + 1, end - 1);
     }
+
     // ================= UC10 - Case & Space Ignored =================
     public static boolean normalizedCheck(String input) {
 
-        // Remove spaces and convert to lowercase
         String clean = input.replaceAll("\\s+", "").toLowerCase();
 
         int left = 0;
@@ -170,6 +164,7 @@ public class PalindromeCheckerApp {
 
         return true;
     }
+
     // ================= UC11 - OOPS Service =================
     static class PalindromeService {
 
@@ -189,6 +184,27 @@ public class PalindromeCheckerApp {
             return true;
         }
     }
+
+    // ================= UC12 - Strategy Pattern =================
+    interface PalindromeStrategy {
+        boolean check(String input);
+    }
+
+    static class StackStrategy implements PalindromeStrategy {
+
+        public boolean check(String input) {
+            return stackCheck(input);
+        }
+    }
+
+    static class DequeStrategy implements PalindromeStrategy {
+
+        public boolean check(String input) {
+            return dequeCheck(input);
+        }
+    }
+
+    // ================= MAIN METHOD =================
     public static void main(String[] args) {
 
         System.out.println("=================================");
@@ -211,50 +227,57 @@ public class PalindromeCheckerApp {
         System.out.println(word + (isPalindrome ? " is a Palindrome (UC2)" :
                 " is NOT a Palindrome (UC2)"));
 
-        // UC3
         System.out.println(word + (reverseCheck(word) ?
                 " is a Palindrome (UC3 - Reverse)" :
                 " is NOT a Palindrome (UC3 - Reverse)"));
 
-        // UC4
         System.out.println(word + (arrayCheck(word) ?
                 " is a Palindrome (UC4 - Array)" :
                 " is NOT a Palindrome (UC4 - Array)"));
 
-        // UC5
         System.out.println(word + (stackCheck(word) ?
                 " is a Palindrome (UC5 - Stack)" :
                 " is NOT a Palindrome (UC5 - Stack)"));
 
-        // UC6
         System.out.println(word + (queueStackCheck(word) ?
                 " is a Palindrome (UC6 - Queue + Stack)" :
                 " is NOT a Palindrome (UC6 - Queue + Stack)"));
 
-        // UC7
         System.out.println(word + (dequeCheck(word) ?
                 " is a Palindrome (UC7 - Deque)" :
                 " is NOT a Palindrome (UC7 - Deque)"));
 
-        // UC8
         System.out.println(word + (linkedListCheck(word) ?
                 " is a Palindrome (UC8 - Linked List)" :
                 " is NOT a Palindrome (UC8 - Linked List)"));
-        // ================= UC9 - Recursion =================
+
         System.out.println(word + (recursiveCheck(word, 0, word.length() - 1) ?
                 " is a Palindrome (UC9 - Recursion)" :
                 " is NOT a Palindrome (UC9 - Recursion)"));
-        // ================= UC10 - Case & Space Ignored =================
+
         String testWord = "Ma dam";
 
         System.out.println(testWord + (normalizedCheck(testWord) ?
                 " is a Palindrome (UC10 - Normalized)" :
                 " is NOT a Palindrome (UC10 - Normalized)"));
-        // ================= UC11 - OOPS Service =================
+
         PalindromeService service = new PalindromeService();
 
         System.out.println(word + (service.checkPalindrome(word) ?
                 " is a Palindrome (UC11 - OOPS Service)" :
                 " is NOT a Palindrome (UC11 - OOPS Service)"));
+
+        // ================= UC12 - Strategy Pattern =================
+        PalindromeStrategy strategy;
+
+        strategy = new StackStrategy();
+        System.out.println(word + (strategy.check(word) ?
+                " is a Palindrome (UC12 - Stack Strategy)" :
+                " is NOT a Palindrome (UC12 - Stack Strategy)"));
+
+        strategy = new DequeStrategy();
+        System.out.println(word + (strategy.check(word) ?
+                " is a Palindrome (UC12 - Deque Strategy)" :
+                " is NOT a Palindrome (UC12 - Deque Strategy)"));
     }
 }
