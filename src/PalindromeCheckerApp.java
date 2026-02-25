@@ -11,6 +11,8 @@ public class PalindromeCheckerApp {
 
         return input.equals(reversed);
     }
+
+    // ================= UC4 - Array Two Pointer =================
     public static boolean arrayCheck(String input) {
 
         char[] arr = input.toCharArray();
@@ -27,6 +29,8 @@ public class PalindromeCheckerApp {
 
         return true;
     }
+
+    // ================= UC5 - Stack =================
     public static boolean stackCheck(String input) {
 
         java.util.Stack<Character> stack = new java.util.Stack<>();
@@ -40,6 +44,8 @@ public class PalindromeCheckerApp {
 
         return true;
     }
+
+    // ================= UC6 - Queue + Stack =================
     public static boolean queueStackCheck(String input) {
 
         java.util.Queue<Character> queue = new java.util.LinkedList<>();
@@ -57,17 +63,15 @@ public class PalindromeCheckerApp {
 
         return true;
     }
-    // ================= UC7 - Deque Method =================
+
+    // ================= UC7 - Deque =================
     public static boolean dequeCheck(String input) {
 
         java.util.Deque<Character> deque = new java.util.ArrayDeque<>();
 
-        // Insert characters
-        for (char ch : input.toCharArray()) {
+        for (char ch : input.toCharArray())
             deque.add(ch);
-        }
 
-        // Compare front and rear
         while (deque.size() > 1) {
             if (!deque.removeFirst().equals(deque.removeLast()))
                 return false;
@@ -75,6 +79,66 @@ public class PalindromeCheckerApp {
 
         return true;
     }
+
+    // ================= UC8 - Linked List =================
+    static class Node {
+        char data;
+        Node next;
+
+        Node(char data) {
+            this.data = data;
+        }
+    }
+
+    public static boolean linkedListCheck(String input) {
+
+        Node head = null;
+        Node tail = null;
+
+        // Convert string to linked list
+        for (char ch : input.toCharArray()) {
+            Node newNode = new Node(ch);
+            if (head == null) {
+                head = tail = newNode;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
+            }
+        }
+
+        // Find middle
+        Node slow = head;
+        Node fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // Reverse second half
+        Node prev = null;
+        while (slow != null) {
+            Node next = slow.next;
+            slow.next = prev;
+            prev = slow;
+            slow = next;
+        }
+
+        // Compare halves
+        Node first = head;
+        Node second = prev;
+
+        while (second != null) {
+            if (first.data != second.data)
+                return false;
+
+            first = first.next;
+            second = second.next;
+        }
+
+        return true;
+    }
+
     public static void main(String[] args) {
 
         System.out.println("=================================");
@@ -83,10 +147,10 @@ public class PalindromeCheckerApp {
         System.out.println("=================================");
         System.out.println("Application Started Successfully!");
 
-        // ================= UC2 - Hardcoded Palindrome =================
         String word = "madam";
-        boolean isPalindrome = true;
 
+        // UC2
+        boolean isPalindrome = true;
         for (int i = 0; i < word.length() / 2; i++) {
             if (word.charAt(i) != word.charAt(word.length() - 1 - i)) {
                 isPalindrome = false;
@@ -94,35 +158,37 @@ public class PalindromeCheckerApp {
             }
         }
 
-        if (isPalindrome)
-            System.out.println(word + " is a Palindrome (UC2)");
-        else
-            System.out.println(word + " is NOT a Palindrome (UC2)");
+        System.out.println(word + (isPalindrome ? " is a Palindrome (UC2)" :
+                " is NOT a Palindrome (UC2)"));
 
-        // ================= UC3 - Reverse Method Call =================
-        if (reverseCheck(word))
-            System.out.println(word + " is a Palindrome (UC3 - Reverse)");
-        else
-            System.out.println(word + " is NOT a Palindrome (UC3 - Reverse)");
-        // ================= UC4 - Character Array Method =================
-        if (arrayCheck(word))
-            System.out.println(word + " is a Palindrome (UC4 - Array)");
-        else
-            System.out.println(word + " is NOT a Palindrome (UC4 - Array)");
-        // ================= UC5 - Stack Method =================
-        if (stackCheck(word))
-            System.out.println(word + " is a Palindrome (UC5 - Stack)");
-        else
-            System.out.println(word + " is NOT a Palindrome (UC5 - Stack)");
-        // ================= UC6 - Stack Method =================
-        if (queueStackCheck(word))
-            System.out.println(word + " is a Palindrome (UC6 - Queue)");
-        else
-            System.out.println(word + " is NOT a Palindrome (UC6 - Queue)");
-        // ================= UC7 - Deque =================
-        if (dequeCheck(word))
-            System.out.println(word + " is a Palindrome (UC7 - Deque)");
-        else
-            System.out.println(word + " is NOT a Palindrome (UC7 - Deque)");
+        // UC3
+        System.out.println(word + (reverseCheck(word) ?
+                " is a Palindrome (UC3 - Reverse)" :
+                " is NOT a Palindrome (UC3 - Reverse)"));
+
+        // UC4
+        System.out.println(word + (arrayCheck(word) ?
+                " is a Palindrome (UC4 - Array)" :
+                " is NOT a Palindrome (UC4 - Array)"));
+
+        // UC5
+        System.out.println(word + (stackCheck(word) ?
+                " is a Palindrome (UC5 - Stack)" :
+                " is NOT a Palindrome (UC5 - Stack)"));
+
+        // UC6
+        System.out.println(word + (queueStackCheck(word) ?
+                " is a Palindrome (UC6 - Queue + Stack)" :
+                " is NOT a Palindrome (UC6 - Queue + Stack)"));
+
+        // UC7
+        System.out.println(word + (dequeCheck(word) ?
+                " is a Palindrome (UC7 - Deque)" :
+                " is NOT a Palindrome (UC7 - Deque)"));
+
+        // UC8
+        System.out.println(word + (linkedListCheck(word) ?
+                " is a Palindrome (UC8 - Linked List)" :
+                " is NOT a Palindrome (UC8 - Linked List)"));
     }
 }
