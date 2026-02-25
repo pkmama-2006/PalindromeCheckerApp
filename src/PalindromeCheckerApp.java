@@ -203,6 +203,35 @@ public class PalindromeCheckerApp {
             return dequeCheck(input);
         }
     }
+    // ================= UC13 - Performance Comparison =================
+    public static void performanceTest(String input) {
+
+        long start, end;
+
+        // Array Method
+        start = System.nanoTime();
+        arrayCheck(input);
+        end = System.nanoTime();
+        System.out.println("UC4 Array Time: " + (end - start) + " ns");
+
+        // Stack Method
+        start = System.nanoTime();
+        stackCheck(input);
+        end = System.nanoTime();
+        System.out.println("UC5 Stack Time: " + (end - start) + " ns");
+
+        // Recursive Method
+        start = System.nanoTime();
+        recursiveCheck(input, 0, input.length() - 1);
+        end = System.nanoTime();
+        System.out.println("UC9 Recursion Time: " + (end - start) + " ns");
+
+        // Linked List Method
+        start = System.nanoTime();
+        linkedListCheck(input);
+        end = System.nanoTime();
+        System.out.println("UC8 LinkedList Time: " + (end - start) + " ns");
+    }
 
     // ================= MAIN METHOD =================
     public static void main(String[] args) {
@@ -279,5 +308,8 @@ public class PalindromeCheckerApp {
         System.out.println(word + (strategy.check(word) ?
                 " is a Palindrome (UC12 - Deque Strategy)" :
                 " is NOT a Palindrome (UC12 - Deque Strategy)"));
+        // ================= UC13 - Performance =================
+        System.out.println("\n--- Performance Comparison ---");
+        performanceTest(word);
     }
 }
