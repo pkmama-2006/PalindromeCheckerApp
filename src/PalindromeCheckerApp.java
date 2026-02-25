@@ -170,7 +170,25 @@ public class PalindromeCheckerApp {
 
         return true;
     }
+    // ================= UC11 - OOPS Service =================
+    static class PalindromeService {
 
+        public boolean checkPalindrome(String input) {
+
+            int left = 0;
+            int right = input.length() - 1;
+
+            while (left < right) {
+                if (input.charAt(left) != input.charAt(right))
+                    return false;
+
+                left++;
+                right--;
+            }
+
+            return true;
+        }
+    }
     public static void main(String[] args) {
 
         System.out.println("=================================");
@@ -232,5 +250,11 @@ public class PalindromeCheckerApp {
         System.out.println(testWord + (normalizedCheck(testWord) ?
                 " is a Palindrome (UC10 - Normalized)" :
                 " is NOT a Palindrome (UC10 - Normalized)"));
+        // ================= UC11 - OOPS Service =================
+        PalindromeService service = new PalindromeService();
+
+        System.out.println(word + (service.checkPalindrome(word) ?
+                " is a Palindrome (UC11 - OOPS Service)" :
+                " is NOT a Palindrome (UC11 - OOPS Service)"));
     }
 }
