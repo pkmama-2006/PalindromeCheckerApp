@@ -57,6 +57,24 @@ public class PalindromeCheckerApp {
 
         return true;
     }
+    // ================= UC7 - Deque Method =================
+    public static boolean dequeCheck(String input) {
+
+        java.util.Deque<Character> deque = new java.util.ArrayDeque<>();
+
+        // Insert characters
+        for (char ch : input.toCharArray()) {
+            deque.add(ch);
+        }
+
+        // Compare front and rear
+        while (deque.size() > 1) {
+            if (!deque.removeFirst().equals(deque.removeLast()))
+                return false;
+        }
+
+        return true;
+    }
     public static void main(String[] args) {
 
         System.out.println("=================================");
@@ -98,8 +116,13 @@ public class PalindromeCheckerApp {
             System.out.println(word + " is NOT a Palindrome (UC5 - Stack)");
         // ================= UC6 - Stack Method =================
         if (queueStackCheck(word))
-            System.out.println(word + " is a Palindrome (UC5 - Stack)");
+            System.out.println(word + " is a Palindrome (UC6 - Queue)");
         else
-            System.out.println(word + " is NOT a Palindrome (UC5 - Stack)");
+            System.out.println(word + " is NOT a Palindrome (UC6 - Queue)");
+        // ================= UC7 - Deque =================
+        if (dequeCheck(word))
+            System.out.println(word + " is a Palindrome (UC7 - Deque)");
+        else
+            System.out.println(word + " is NOT a Palindrome (UC7 - Deque)");
     }
 }
