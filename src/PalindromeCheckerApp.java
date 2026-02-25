@@ -138,6 +138,20 @@ public class PalindromeCheckerApp {
 
         return true;
     }
+    // ================= UC9 - Recursive Method =================
+    public static boolean recursiveCheck(String str, int start, int end) {
+
+        // Base Condition
+        if (start >= end)
+            return true;
+
+        // If mismatch found
+        if (str.charAt(start) != str.charAt(end))
+            return false;
+
+        // Recursive call
+        return recursiveCheck(str, start + 1, end - 1);
+    }
 
     public static void main(String[] args) {
 
@@ -190,5 +204,9 @@ public class PalindromeCheckerApp {
         System.out.println(word + (linkedListCheck(word) ?
                 " is a Palindrome (UC8 - Linked List)" :
                 " is NOT a Palindrome (UC8 - Linked List)"));
+        // ================= UC9 - Recursion =================
+        System.out.println(word + (recursiveCheck(word, 0, word.length() - 1) ?
+                " is a Palindrome (UC9 - Recursion)" :
+                " is NOT a Palindrome (UC9 - Recursion)"));
     }
 }
